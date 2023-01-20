@@ -1,0 +1,53 @@
+{
+    "build": {
+        "target": ".",
+        "tasks": [
+            {
+                "for": "java-cf",
+                "src": "srv",
+                "options": {
+                    "model": [
+                        "db",
+                        "srv"
+                    ]
+                }
+            },
+            {
+                "for": "java-cf",
+                "src": "srv2",
+                "options": {
+                    "model": [
+                        "db",
+                        "srv2"
+                    ]
+                }
+            },
+            {
+                "for": "hana",
+                "options": {
+                    "model": [
+                        "db",
+                        "srv",
+                        "srv2"
+                    ]
+                }
+            }
+        ]
+    },
+    "hana": {
+        "deploy-format": "hdbtable"
+    },
+    "requires": {
+        "db": {
+            "kind": "sql",
+            "model": [
+                "db",
+                "srv",
+                "srv2"
+            ]
+        }
+    },
+    "odata": {
+        "version": "v4"
+    }
+}

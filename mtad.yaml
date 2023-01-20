@@ -1,0 +1,33 @@
+_schema-version: "3.1"
+ID: rpmint
+description: RPM INT Java Project with UI
+version: 1.0.0
+modules:
+- name: rpmint-srv
+  type: java.tomcat
+  path: rpmint-srv
+  properties:
+    SPRING_PROFILES_ACTIVE: cloud,sandbox
+  provides:
+  - name: srv
+    properties:
+      url: ${default-url}
+  parameters:
+    buildpack: sap_java_buildpack
+    disk-quota: 256M
+    memory: 1024M
+- name: rpmint-srv2
+  type: java.tomcat
+  path: rpmint-srv2
+  properties:
+    SPRING_PROFILES_ACTIVE: cloud,sandbox
+  provides:
+  - name: srv2
+    properties:
+      url: ${default-url}
+  parameters:
+    buildpack: sap_java_buildpack
+    disk-quota: 256M
+    memory: 1024M
+parameters:
+  enable-parallel-deployments: true

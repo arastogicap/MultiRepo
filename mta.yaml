@@ -1,0 +1,59 @@
+_schema-version: '2.1'
+ID: rpmint
+version: 1.0.0
+description: "RPM INT Java Project with UI"
+parameters:
+  enable-parallel-deployments: true
+modules:
+  # --------------------- SERVER MODULE ------------------------
+  - name: rpmint-srv
+    # ------------------------------------------------------------
+    type: java
+    path: srv
+    parameters:
+      memory: 1024M
+      disk-quota: 256M
+      buildpack: sap_java_buildpack
+    properties:
+      SPRING_PROFILES_ACTIVE: cloud,sandbox
+    build-parameters:
+      builder: custom
+      commands:
+        - mvn clean package -DskipTests=true
+      build-result: target/*-exec.jar
+    provides:
+      - name: srv
+        properties:
+          url: '${default-url}'
+  # cloud
+
+  # --------------------- SERVER MODULE ------------------------
+  - name: rpmint-srv2
+    # ------------------------------------------------------------
+    type: java
+    path: srv2
+    parameters:
+      memory: 1024M
+      disk-quota: 256M
+      buildpack: sap_java_buildpack
+    properties:
+      SPRING_PROFILES_ACTIVE: cloud,sandbox
+    build-parameters:
+      builder: custom
+      commands:
+        - mvn clean package -DskipTests=true
+      build-result: target/*-exec.jar
+    #requires:#
+    #  - name: rpmint-service-manager#
+    #  - name: rpmint-uaa#
+    provides:
+      - name: srv2
+        properties:
+          url: '${default-url}'
+
+
+  # --------------------- DB MODULE ---------------------------
+
+
+  # --------------------- RESOURCES ---------------------
+
