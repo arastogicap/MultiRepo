@@ -1,0 +1,3 @@
+[submodule "serv2"]
+	path = serv2
+	url = ../serv2.git
